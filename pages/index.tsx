@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import { Typography } from 'antd';
+import { authorName, githubUrl, personalSite } from '../constants/homePage';
+import Board from '../components/Board';
 
 const { Title } = Typography;
 
@@ -13,20 +15,20 @@ const Home = () => (
 
     <main className={styles.main}>
       <Title level={1}>
-        Clone of {' '}
-        <a
-          href="https://www.xiaohuiliu.me/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Trello
+        Clone of{' '}
+        <a href={personalSite} target="_blank" rel="noopener noreferrer">
+          Trello 🧑🏻‍💻
         </a>
       </Title>
 
       <Title className={styles.description} level={4}>
-        Get started by editing{' '}
-        <code className={styles.code}>pages/index.js</code>
+        View this project on{' '}
+        <a href={githubUrl} target="_blank" rel="noopener noreferrer">
+          <code className={styles.code}>Github</code>
+        </a>
       </Title>
+
+      <Board />
     </main>
 
     <footer className={styles.footer}>
@@ -35,7 +37,7 @@ const Home = () => (
         target="_blank"
         rel="noopener noreferrer"
       >
-        Developed by Xiaohui(Jay) Liu
+        Developed by {authorName}
       </a>
     </footer>
   </div>
