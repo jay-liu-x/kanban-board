@@ -1,0 +1,27 @@
+$gap: 20px;
+$task-width: 200px;
+$task-bg-color:#fbfbfb;
+
+.column_container {
+  width: $task-width;
+  height: calc(100% - #{$gap});
+  text-align: center;
+
+  > * {
+    background-color: $task-bg-color;
+    padding: 0 $gap;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    padding-left: 0;
+  }
+
+  li {
+    padding: $gap;
+    box-shadow: 0 1px 1px rgba(0,0,0, 0.1);
+  }
+}

@@ -1,0 +1,16 @@
+$gap: 30px;
+
+.board_container {
+  width: 80%;
+  height: 70vh;
+  display: flex;
+  overflow-x: auto;
+  > * {
+    flex: 0 0 auto; // 'rigid'
+    margin-left: $gap;
+  }
+  &::after {
+    content: '';
+    flex: 0 0 $gap;
+  }
+}
