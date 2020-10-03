@@ -1,4 +1,4 @@
-import '../styles/globals.css';
+import '../styles/globals.scss';
 import 'antd/dist/antd.css';
 
 // eslint-disable-next-line react/prop-types
