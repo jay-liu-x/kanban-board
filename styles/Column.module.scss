@@ -1,12 +1,16 @@
 $gap: 20px;
 $task-width: 200px;
 $task-bg-color: #ffffff;
+$border: 1px solid #f0f0f0;
+$box-shadow: 0 2px 2px rgba(0,0,0, 0.1);
 
 .column_container {
   width: $task-width;
   height: calc(100% - #{$gap});
   text-align: center;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+  border: $border;
+  box-shadow: $box-shadow;
+  padding: 20px;
 
   > * {
     background-color: $task-bg-color;
