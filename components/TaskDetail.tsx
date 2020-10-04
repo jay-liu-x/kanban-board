@@ -1,15 +1,17 @@
-import { Drawer, Button } from 'antd';
+import { Drawer } from 'antd';
 
-const TaskDetail = ({ show, onOk, onCancel, task }) => (
-  <Modal
-    title={task.title}
-    visible={show}
-    onOk={onOk}
-    onCancel={onCancel}
-  >
-    <p>{task.text}</p>
-    <p>{task.status}</p>
-  </Modal>
-);
+const TaskDetail = ({ task, visible, onClose }) => {
+  return (
+    <Drawer
+      title={task.title}
+      placement="right"
+      onClose={onClose}
+      visible={visible}
+    >
+      <p>{task.body}</p>
+      <p>{task.label}</p>
+    </Drawer>
+  );
+};
 
 export default TaskDetail;

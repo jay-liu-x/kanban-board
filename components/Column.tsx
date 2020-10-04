@@ -11,6 +11,9 @@ const Column = ({ col }) => {
 
   return (
     <div className={styles.column_container} title={title}>
+      <Title level={3}>
+        {col.title}
+      </Title>
       <ul>
         {tasks.map((task, i) => (
           <li key={i}>
