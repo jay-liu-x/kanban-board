@@ -1,15 +1,15 @@
 $gap: 20px;
 $task-width: 200px;
-$task-bg-color:#fbfbfb;
+$task-bg-color: #ffffff;
 
 .column_container {
   width: $task-width;
   height: calc(100% - #{$gap});
   text-align: center;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
 
   > * {
     background-color: $task-bg-color;
-    padding: 0 $gap;
   }
 
   ul {
@@ -18,10 +18,5 @@ $task-bg-color:#fbfbfb;
     max-height: 100%;
     overflow-y: auto;
     padding-left: 0;
-  }
-
-  li {
-    padding: $gap;
-    box-shadow: 0 1px 1px rgba(0,0,0, 0.1);
   }
 }
