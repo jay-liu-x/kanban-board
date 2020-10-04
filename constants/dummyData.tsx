@@ -3,19 +3,19 @@ import { TaskType, ColumnType, BoardType } from './interfaces';
 export const task1: TaskType = {
   title: 'Task 1',
   body: 'Task 1 is cool',
-  status: 'todo',
+  label: 'Todo',
 };
 
 export const task2: TaskType = {
   title: 'Task 2',
   body: 'Task 2 is cool',
-  status: 'todo',
+  label: 'Class',
 };
 
 export const task3: TaskType = {
   title: 'Task 3',
   body: 'Task 3 is cool',
-  status: 'todo',
+  label: 'Project',
 };
 
 export const column1: ColumnType = {

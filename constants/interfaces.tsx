@@ -1,7 +1,7 @@
 export interface TaskType {
   title: string;
   body: string;
-  status: string;
+  label: string;
 }
 
 export interface ColumnType {
