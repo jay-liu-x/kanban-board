@@ -1,27 +1,24 @@
 import { Typography } from 'antd';
 import { Droppable } from 'react-beautiful-dnd';
 
-import styles from '../styles/Column.module.scss';
+import styles from '../styles/column.module.scss';
 
-import { TaskType } from '../constants/interfaces';
-import Task from './Task';
+import Task from './task';
 
 const { Title } = Typography;
 
-const Column = ({ col }) => {
-  const title: string = col.title;
-  const tasks: TaskType[] = col.taskList;
+const Column = ({ column, tasks }) => {
 
   return (
-    <Droppable droppableId={col.id.toString()}>
+    <Droppable droppableId={column.id.toString()}>
       {(provided) => (
         <div
           className={styles.column_container}
-          title={title}
+          title={column.title}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <Title level={3}>{col.title}</Title>
+          <Title level={3}>{column.title}</Title>
           {tasks.map((task, index) => (
             <Task key={task.id} task={task} index={index} />
           ))}
