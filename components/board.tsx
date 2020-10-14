@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './column';
 
@@ -6,6 +7,8 @@ import styles from '../styles/board.module.scss';
 import { dummyData } from '../constants/dummyData';
 
 const Board = () => {
+  const [data, setData] = useState(dummyData);
+
   const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
@@ -22,7 +25,7 @@ const Board = () => {
       return;
     }
 
-    const column = dummyData.columns[source.droppableId];
+    const column = data.columns[source.droppableId];
     const newTaskIds: number[] = Array.from(column.taskIds);
     newTaskIds.splice(source.index, 1); // remove element with source index
     newTaskIds.splice(destination.index, 0, draggableId); // insert at new pos
@@ -31,14 +34,24 @@ const Board = () => {
       ...column,
       taskIds: newTaskIds,
     };
+
+    const newData = {
+      ...data,
+      columns: {
+        ...data.columns,
+        [newColumn.id]: newColumn,
+      },
+    };
+
+    setData(newData);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className={styles.board_container}>
-        {dummyData.columnOrder.map((columnId) => {
-          const column = dummyData.columns[columnId];
-          const curTasks = dummyData.tasks;
+        {data.columnOrder.map((columnId) => {
+          const column = data.columns[columnId];
+          const curTasks = data.tasks;
           const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
           return <Column key={columnId} column={column} tasks={tasks} />;
         })}
