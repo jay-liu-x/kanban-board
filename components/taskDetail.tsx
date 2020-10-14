@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Drawer } from 'antd';
 
 const TaskDetail = ({ task, visible, onClose }) => {
@@ -12,6 +13,12 @@ const TaskDetail = ({ task, visible, onClose }) => {
       <p>{task.label}</p>
     </Drawer>
   );
+};
+
+TaskDetail.propTypes = {
+  task: PropTypes.object,
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
 export default TaskDetail;

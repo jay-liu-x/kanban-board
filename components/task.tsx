@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
 import TaskDetail from './taskDetail';
 
@@ -39,6 +40,11 @@ const Task = ({ task, index }) => {
       )}
     </Draggable>
   );
+};
+
+Task.propTypes = {
+  task: PropTypes.object,
+  index: PropTypes.number,
 };
 
 export default Task;

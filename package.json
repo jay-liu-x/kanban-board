@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "antd": "^4.6.6",
-    "next": "9.5.1",
+    "next": "^9.5.5",
+    "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "16.13.1",

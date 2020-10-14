@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Typography } from 'antd';
 import { Droppable } from 'react-beautiful-dnd';
 
@@ -8,7 +9,6 @@ import Task from './task';
 const { Title } = Typography;
 
 const Column = ({ column, tasks }) => {
-
   return (
     <Droppable droppableId={column.id.toString()}>
       {(provided) => (
@@ -27,6 +27,11 @@ const Column = ({ column, tasks }) => {
       )}
     </Droppable>
   );
+};
+
+Column.propTypes = {
+  column: PropTypes.object,
+  tasks: PropTypes.array,
 };
 
 export default Column;
