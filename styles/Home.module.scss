@@ -1,5 +1,5 @@
 .app_container {
-  min-height: 100vh;
+  height: 100vh;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,6 @@
 
 .main {
   width: 100%;
-  height: auto;
-  padding: 5rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -20,7 +18,6 @@
 
 .footer {
   width: 100%;
-  height: auto;
   font-size: 0.8rem;
   border-top: 1px solid #eaeaea;
   padding: 10px 0;
