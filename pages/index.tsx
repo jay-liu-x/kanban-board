@@ -2,7 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/home.module.scss';
 import { Typography } from 'antd';
 import { authorName, githubUrl, personalSite } from '../constants/homePage';
-import Board from '../components/board';
+import Board from '../components/board/board';
 
 const { Title } = Typography;
 

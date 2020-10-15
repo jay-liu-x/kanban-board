@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import TaskDetail from './taskDetail';
+import TaskDetail from '../taskDetail/taskDetail';
 
 import { Typography } from 'antd';
-import styles from '../styles/task.module.scss';
+import styles from './task.module.scss';
 
 const { Title, Text } = Typography;
 

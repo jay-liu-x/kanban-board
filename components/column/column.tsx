@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Typography } from 'antd';
 import { Droppable } from 'react-beautiful-dnd';
 
-import styles from '../styles/column.module.scss';
+import styles from './column.module.scss';
 
-import Task from './task';
+import Task from '../task/task';
 
 const { Title } = Typography;
 

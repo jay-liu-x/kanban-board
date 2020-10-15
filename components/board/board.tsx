@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import Column from './column';
+import Column from '../column/column';
 
-import styles from '../styles/board.module.scss';
+import styles from './board.module.scss';
 
-import { dummyData } from '../constants/dummyData';
+import { dummyData } from '../../constants/dummyData';
 
 const Board = () => {
   const [data, setData] = useState(dummyData);
