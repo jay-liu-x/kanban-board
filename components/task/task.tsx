@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
-import TaskDetail from '../taskDetail/taskDetail';
+import TaskModal from '../taskModal/taskModal';
 
 import { Typography } from 'antd';
 import styles from './task.module.scss';
@@ -9,14 +9,10 @@ import styles from './task.module.scss';
 const { Title, Text } = Typography;
 
 const Task = ({ task, index }) => {
-  const [showDrawer, setShowDrawer] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const onClickTask = () => {
-    setShowDrawer(!showDrawer);
-  };
-
-  const onCloseTaskDetail = () => {
-    setShowDrawer(!showDrawer);
+    setShowModal(!showModal);
   };
 
   return (
@@ -31,10 +27,9 @@ const Task = ({ task, index }) => {
         >
           <Title level={5}>{task.title}</Title>
           <Text>{task.body}</Text>
-          <TaskDetail
+          <TaskModal
             task={task}
-            visible={showDrawer}
-            onClose={onCloseTaskDetail}
+            visible={showModal}
           />
         </div>
       )}
