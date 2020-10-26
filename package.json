@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "antd": "^4.6.6",
+    "express": "^4.17.1",
     "next": "^9.5.5",
     "prop-types": "^15.7.2",
     "react": "16.13.1",
