@@ -6,7 +6,7 @@ Deployed with [Vercel](https://vercel.com/).
 
 <br>
 
-### 🚀 [Live Preview](https://trello-clone.ergouzii.vercel.app/)
+### 🚀 [Live Demo](https://trello-clone.ergouzii.vercel.app/)
 
 <br>
 
@@ -23,3 +23,9 @@ npm i
 ```
 npm run dev
 ```
+
+## Technologies 🖥
+
+Next.js
+
+React.js
