@@ -5,7 +5,7 @@ import TaskDetail from '../taskDetail/taskDetail';
 
 import { Typography } from 'antd';
 import styles from './task.module.scss';
-
+ 
 const { Title, Text } = Typography;
 
 const Task = ({ task, index }) => {
