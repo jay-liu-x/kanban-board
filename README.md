@@ -4,7 +4,7 @@ This project is a clone of the popular task management tool [Trello](https://tre
 
 <br>
 
-### 🚀 [Live Demo](https://trello-clone.ergouzii.vercel.app/)
+### 🚀 [Live Demo](https://trello-clone.xiaohui-j-liu.vercel.app/)
 
 <br>
 
