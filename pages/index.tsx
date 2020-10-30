@@ -1,4 +1,4 @@
-import useSWR from 'swr';
+// import useSWR from 'swr';
 import { authorName, githubUrl, personalSite, trelloUrl } from '../constants';
 import Board from '../components/board/board';
 
@@ -52,15 +52,15 @@ const Home = () => {
   );
 };
 
-const fetcher = (query) =>
-  fetch('/api/graphql', {
-    method: 'POST',
-    headers: {
-      'Content-type': 'application/json',
-    },
-    body: JSON.stringify({ query }),
-  })
-    .then((res) => res.json())
-    .then((json) => json.data);
+// const fetcher = (query) =>
+//   fetch('/api/graphql', {
+//     method: 'POST',
+//     headers: {
+//       'Content-type': 'application/json',
+//     },
+//     body: JSON.stringify({ query }),
+//   })
+//     .then((res) => res.json())
+//     .then((json) => json.data);
 
 export default Home;

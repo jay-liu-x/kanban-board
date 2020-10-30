@@ -6,27 +6,28 @@ import { Card } from 'antd';
 import { Typography } from 'antd';
 import styles from './column.module.scss';
 
-const { Meta } = Card;
-
 const { Title } = Typography;
 
 const Column = ({ column, tasks }) => {
   return (
     <Droppable droppableId={column.id.toString()}>
       {(provided) => (
-        <Card className={styles.column_container}>
-          <div
-            title={column.title}
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
-            <Meta title={column.title} />
+        <div
+          className={styles.column_container}
+          title={column.title}
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+        >
+          <Card style={{ backgroundColor: '#3e526d', height: '100%' }}>
+            <Title level={5} style={{ color: 'white' }}>
+              {column.title}
+            </Title>
             {tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
-          </div>
-        </Card>
+          </Card>
+        </div>
       )}
     </Droppable>
   );

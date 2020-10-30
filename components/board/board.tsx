@@ -87,7 +87,7 @@ const Board = () => {
           const curTasks = data.tasks;
           const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
           return (
-            <Col key={columnId} span={4}>
+            <Col key={columnId} span={5}>
               <Column column={column} tasks={tasks} />
             </Col>
           );
