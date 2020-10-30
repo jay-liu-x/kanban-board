@@ -1,10 +1,11 @@
 // import useSWR from 'swr';
 import { authorName, githubUrl, personalSite, trelloUrl } from '../constants';
 import Board from '../components/board/board';
-
-import Head from 'next/head';
-import styles from '../styles/home.module.scss';
 import { Typography } from 'antd';
+import { GithubFilled, RadarChartOutlined } from '@ant-design/icons';
+import Head from 'next/head';
+
+import styles from '../styles/home.module.scss';
 
 const { Title } = Typography;
 
@@ -23,10 +24,11 @@ const Home = () => {
 
       <main className={styles.main}>
         <Title level={1} style={{ color: 'white' }}>
-          Clone of{' '}
+          <RadarChartOutlined spin /> Clone of{' '}
           <a href={trelloUrl} target="_blank" rel="noopener noreferrer">
-            Trello 🧑🏻‍💻
+            Trello 🧑🏻‍💻{' '}
           </a>
+          <RadarChartOutlined spin />
         </Title>
 
         <Title
@@ -36,7 +38,9 @@ const Home = () => {
         >
           View this project on{' '}
           <a href={githubUrl} target="_blank" rel="noopener noreferrer">
-            <code className={styles.code}>Github</code>
+            <code className={styles.code}>
+              <GithubFilled /> Github
+            </code>
           </a>
         </Title>
 
@@ -45,7 +49,7 @@ const Home = () => {
 
       <footer className={styles.footer}>
         <a href={personalSite} target="_blank" rel="noopener noreferrer">
-          Developed by {authorName}
+          Developed by {authorName} 🦸🏻‍♂️
         </a>
       </footer>
     </div>
