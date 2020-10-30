@@ -1,23 +1,6 @@
-$gap: 30px;
-$card-color: rgba(0, 0, 0, 0.6);
-$border: 2px solid $card-color;
-$box-shadow: 4px 4px 0px $card-color;
-
 .board_container {
-  width: 80%;
+  width: 100%;
   height: 70vh;
-  display: flex;
-  flex-direction: row;
   overflow-x: auto;
   padding: 20px;
-  border: $border;
-  box-shadow: $box-shadow;
-  > * {
-    flex: 0 0 auto; // 'rigid'
-    margin-left: $gap;
-  }
-  &::after {
-    content: '';
-    flex: 0 0 $gap;
-  }
 }

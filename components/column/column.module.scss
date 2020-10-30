@@ -1,27 +1,5 @@
-$gap: 20px;
-$task-width: 200px;
-$task-bg-color: #ffffff;
-$card-color: rgba(0, 0, 0, 0.6);
-$border: 2px solid $card-color;
-$box-shadow: 4px 4px 0px $card-color;
-
 .column_container {
-  width: $task-width;
-  height: calc(100% - #{$gap});
+  height: 100%;
   text-align: center;
-  border: $border;
-  box-shadow: $box-shadow;
-  padding: 20px;
-
-  > * {
-    background-color: $task-bg-color;
-  }
-
-  ul {
-    list-style: none;
-    margin: 0;
-    max-height: 100%;
-    overflow-y: auto;
-    padding-left: 0;
-  }
+  padding: 10px;
 }
