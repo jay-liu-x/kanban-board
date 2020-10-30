@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from '../column/column';
 
-import { Card, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 import styles from './board.module.scss';
 
 import { dummyData } from '../../dummyData';
@@ -81,13 +81,16 @@ const Board = () => {
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Row gutter={32} className={styles.board_container}>
+      <Row
+        gutter={{ xs: 8, sm: 16, md: 24 }}
+        className={styles.board_container}
+      >
         {data.board.columnOrder.map((columnId) => {
           const column = data.columns[columnId];
           const curTasks = data.tasks;
           const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
           return (
-            <Col key={columnId} span={5}>
+            <Col key={columnId} xs={24} sm={16} md={12} lg={8} xl={4}>
               <Column column={column} tasks={tasks} />
             </Col>
           );
