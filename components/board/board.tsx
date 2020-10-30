@@ -5,7 +5,7 @@ import Column from '../column/column';
 import { Card, Col, Row } from 'antd';
 import styles from './board.module.scss';
 
-import { dummyData } from '../../constants/dummyData';
+import { dummyData } from '../../dummyData';
 
 const Board = () => {
   const [data, setData] = useState(dummyData);
