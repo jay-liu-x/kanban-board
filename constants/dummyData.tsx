@@ -23,5 +23,5 @@ export const dummyData = {
       taskIds: [4],
     },
   },
-  board: { columnOrder: [0, 1, 2] },
+  board: {columnOrder: [0, 1, 2]},
 };

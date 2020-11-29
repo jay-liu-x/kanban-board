@@ -6,7 +6,7 @@ import { Button, Col, Row } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styles from './board.module.scss';
 
-import { dummyData } from '../../dummyData';
+import { dummyData } from '../../constants/dummyData';
 
 const Board = () => {
   const [data, setData] = useState(dummyData);
