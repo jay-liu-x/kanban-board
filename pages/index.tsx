@@ -1,5 +1,10 @@
 // import useSWR from 'swr';
-import { authorName, githubUrl, personalSite, trelloUrl } from '../constants';
+import {
+  authorName,
+  githubUrl,
+  personalSite,
+  kanbanWikiUrl,
+} from '../constants/homePage';
 import Board from '../components/board/board';
 import { Typography } from 'antd';
 import { GithubFilled, RadarChartOutlined } from '@ant-design/icons';
@@ -18,15 +23,15 @@ const Home = () => {
   return (
     <div className={styles.app_container}>
       <Head>
-        <title>Trello Clone</title>
+        <title>Kanban Board</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
         <Title level={1} style={{ color: 'white' }}>
-          <RadarChartOutlined spin /> Clone of{' '}
-          <a href={trelloUrl} target="_blank" rel="noopener noreferrer">
-            Trello 🧑🏻‍💻{' '}
+          <RadarChartOutlined spin /> Inspired by{' '}
+          <a href={kanbanWikiUrl} target="_blank" rel="noopener noreferrer">
+            Kanban 🧑🏻‍💻{' '}
           </a>
           <RadarChartOutlined spin />
         </Title>

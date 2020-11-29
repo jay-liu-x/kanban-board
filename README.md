@@ -1,10 +1,10 @@
-# Trello Clone
+# Kanban Board
 
-This project is a clone of the popular task management tool [Trello](https://trello.com/).
+Kanban is a popular framework for agile software development teams. Famous softwares applying the Kanban methodology: Trello, Jira, Asana, ...
 
 <br>
 
-### 🚀 [Live Demo](https://trello-clone.xiaohui-j-liu.vercel.app/)
+### 🚀 [Live Demo](https://kanban-board.xiaohui-j-liu.vercel.app/)
 
 <br>
 
