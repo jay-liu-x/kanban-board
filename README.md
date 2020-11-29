@@ -62,3 +62,5 @@ Next.js
 React.js
 
 MongoDB
+
+GraphQL
