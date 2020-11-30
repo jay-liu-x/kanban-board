@@ -64,3 +64,7 @@ React.js
 MongoDB
 
 GraphQL
+
+Apollo Server
+
+SASS (CSS Preprocessor)
