@@ -34,9 +34,15 @@ $border: 1px solid #eaeaea;
 }
 
 .footer a {
+  color: #1890ff;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.footer a:hover {
+  color: #57a8f4;
+  cursor: pointer;
 }
 
 .title a {
