@@ -1,24 +1,43 @@
-// import useSWR from 'swr';
+import useSWR from 'swr';
 import {
   authorName,
   githubUrl,
   personalSite,
   kanbanWikiUrl,
-} from '../constants/homePage';
+} from '../utils/constants';
 import Board from '../components/board/board';
-import { Typography } from 'antd';
+import { Typography, Spin, Space } from 'antd';
 import { GithubFilled, RadarChartOutlined } from '@ant-design/icons';
 import Head from 'next/head';
+import {queryGetColumns} from '../utils/queries';
 
 import styles from '../styles/home.module.scss';
 
 const { Title } = Typography;
 
-const Home = () => {
-  // const { data, error } = useSWR('{ }', fetcher);
+const fetcher = (query) =>
+  fetch('/api/graphql', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({ query }),
+  })
+    .then((res) => res.json())
+    .then((json) => json.data);
 
-  // if (error) return <div>Failed to load</div>;
-  // if (!data) return <div>Loading...</div>;
+const Home = () => {
+  const { data, error } = useSWR(queryGetColumns, fetcher);
+
+  if (error) return <div>Failed to load</div>;
+  if (!data)
+    return (
+      <Space size="middle">
+        <Spin size="large" />
+      </Space>
+    );
+
+  const { columns } = data;
 
   return (
     <div className={styles.app_container}>
@@ -49,7 +68,7 @@ const Home = () => {
           </a>
         </Title>
 
-        <Board />
+        <Board columns={columns} />
       </main>
 
       <footer className={styles.footer}>
@@ -60,16 +79,5 @@ const Home = () => {
     </div>
   );
 };
-
-// const fetcher = (query) =>
-//   fetch('/api/graphql', {
-//     method: 'POST',
-//     headers: {
-//       'Content-type': 'application/json',
-//     },
-//     body: JSON.stringify({ query }),
-//   })
-//     .then((res) => res.json())
-//     .then((json) => json.data);
 
 export default Home;

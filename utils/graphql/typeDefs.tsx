@@ -8,6 +8,7 @@ const typeDefs = gql`
     columns: [Column]
   }
   type Column {
+    id: String!
     column_name: String!
     tasks: [Task]
   }

@@ -13,13 +13,12 @@ const TaskModal = ({ task, visible }) => {
 
   return (
     <Modal
-      title={task.title}
+      title={task.task_title}
       visible={visible}
       onOk={handleOk}
       onCancel={handleCancel}
     >
-      <p>{task.body}</p>
-      <p>{task.label}</p>
+      <p>{task.task_body}</p>
     </Modal>
   );
 };

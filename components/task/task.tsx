@@ -16,7 +16,7 @@ const Task = ({ task, index }) => {
   };
 
   return (
-    <Draggable draggableId={task.id.toString()} index={index}>
+    <Draggable draggableId={task.id} index={index}>
       {(provided) => (
         <div
           className={styles.task_container}
@@ -26,8 +26,8 @@ const Task = ({ task, index }) => {
           {...provided.dragHandleProps}
         >
           <Card>
-            <Title level={5}>{task.title}</Title>
-            <Text>{task.body}</Text>
+            <Title level={5}>{task.task_title}</Title>
+            <Text>{task.task_body}</Text>
             <TaskModal task={task} visible={showModal} />
           </Card>
         </div>

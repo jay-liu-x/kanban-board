@@ -8,9 +8,10 @@ import styles from './column.module.scss';
 
 const { Title } = Typography;
 
-const Column = ({ column, tasks }) => {
+const Column = ({ column }) => {
+
   return (
-    <Droppable droppableId={column.id.toString()}>
+    <Droppable droppableId={column.id}>
       {(provided) => (
         <div
           className={styles.column_container}
@@ -22,7 +23,7 @@ const Column = ({ column, tasks }) => {
             <Title level={5} style={{ color: 'white' }}>
               {column.title}
             </Title>
-            {tasks.map((task, index) => (
+            {column.tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
             ))}
             {provided.placeholder}
@@ -35,7 +36,6 @@ const Column = ({ column, tasks }) => {
 
 Column.propTypes = {
   column: PropTypes.object,
-  tasks: PropTypes.array,
 };
 
 export default Column;

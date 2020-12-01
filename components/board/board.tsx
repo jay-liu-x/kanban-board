@@ -1,5 +1,6 @@
 import { Fragment, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import PropTypes from 'prop-types';
 import Column from '../column/column';
 
 import { Button, Col, Row } from 'antd';
@@ -8,7 +9,7 @@ import styles from './board.module.scss';
 
 import { dummyData } from '../../constants/dummyData';
 
-const Board = () => {
+const Board = ({columns}) => {
   const [data, setData] = useState(dummyData);
 
   /* Handles task dragging. */
@@ -88,13 +89,12 @@ const Board = () => {
         className={styles.board_container}
       >
         <Fragment>
-          {data.board.columnOrder.map((columnId) => {
-            const column = data.columns[columnId];
-            const curTasks = data.tasks;
-            const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
+          {columns.map((column, index) => {
+            //const tasks = column.tasks;
+            //const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
             return (
-              <Col key={columnId} xs={24} sm={16} md={12} lg={8} xl={4}>
-                <Column column={column} tasks={tasks} />
+              <Col key={index} xs={24} sm={16} md={12} lg={8} xl={4}>
+                <Column column={column} />
               </Col>
             );
           })}
@@ -108,6 +108,10 @@ const Board = () => {
       </Row>
     </DragDropContext>
   );
+};
+
+Board.propTypes = {
+  columns: PropTypes.array,
 };
 
 export default Board;
