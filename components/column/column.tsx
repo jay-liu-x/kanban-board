@@ -15,13 +15,13 @@ const Column = ({ column }) => {
       {(provided) => (
         <div
           className={styles.column_container}
-          title={column.title}
+          title={column.column_name}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
           <Card style={{ backgroundColor: '#3e526d', height: '100%' }}>
             <Title level={5} style={{ color: 'white' }}>
-              {column.title}
+              {column.column_name}
             </Title>
             {column.tasks.map((task, index) => (
               <Task key={task.id} task={task} index={index} />
