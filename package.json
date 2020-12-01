@@ -13,6 +13,7 @@
     "apollo-server-micro": "^2.18.2",
     "express": "^4.17.1",
     "graphql": "^15.4.0",
+    "graphql-tools": "^7.0.2",
     "mongodb": "^3.6.3",
     "next": "^9.5.5",
     "prop-types": "^15.7.2",
