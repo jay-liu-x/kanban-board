@@ -98,7 +98,12 @@ const Board = () => {
               </Col>
             );
           })}
-          <Button shape="circle" icon={<PlusOutlined />} size="large" style={{marginLeft: 10}}></Button>
+          <Button
+            shape="circle"
+            icon={<PlusOutlined />}
+            size="large"
+            style={{ marginLeft: 10 }}
+          ></Button>
         </Fragment>
       </Row>
     </DragDropContext>
