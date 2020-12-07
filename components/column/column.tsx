@@ -8,24 +8,24 @@ import styles from './column.module.scss';
 
 const { Title } = Typography;
 
-const Column = ({ column }) => {
-
+const Column = ({ column, tasks }) => {
   return (
-    <Droppable droppableId={column.id}>
+    <Droppable droppableId={column._id}>
       {(provided) => (
         <div
           className={styles.column_container}
-          title={column.column_name}
+          title={column.name}
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
           <Card style={{ backgroundColor: '#3e526d', height: '100%' }}>
             <Title level={5} style={{ color: 'white' }}>
-              {column.column_name}
+              {column.name}
             </Title>
-            {column.tasks.map((task, index) => (
-              <Task key={task.id} task={task} index={index} />
-            ))}
+            {column.taskIds.map((taskId, index) => {
+              const task: object = tasks.find((task) => task._id === taskId);
+              return <Task key={taskId} task={task} index={index} />;
+            })}
             {provided.placeholder}
           </Card>
         </div>
@@ -36,6 +36,7 @@ const Column = ({ column }) => {
 
 Column.propTypes = {
   column: PropTypes.object,
+  tasks: PropTypes.array,
 };
 
 export default Column;

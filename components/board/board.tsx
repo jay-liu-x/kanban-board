@@ -1,19 +1,37 @@
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
+import { useQuery } from '@apollo/client';
 import { DragDropContext } from 'react-beautiful-dnd';
-import PropTypes from 'prop-types';
 import Column from '../column/column';
+import { GET_COLUMNS_AND_TASKS } from '../../utils/queries';
+import { Loading } from '../loading';
+import { Error } from '../error';
 
 import { Button, Col, Row } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styles from './board.module.scss';
 
-import { dummyData } from '../../constants/dummyData';
+const Board = () => {
+  const [columns, setColumns] = useState();
+  const [tasks, setTasks] = useState();
 
-const Board = ({columns}) => {
-  const [data, setData] = useState(dummyData);
+  const { loading, error, data } = useQuery(GET_COLUMNS_AND_TASKS);
+
+  useEffect(() => {
+    if (!loading && data) {
+      setColumns(data.columns);
+      setTasks(data.tasks);
+    }
+  }, [loading, data]);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
 
   /* Handles task dragging. */
-  const onDragEnd = (result) => {
+  const onDragEnd = (result: object) => {
     const { destination, source, draggableId } = result;
 
     // Dropped outside the list
@@ -29,29 +47,30 @@ const Board = ({columns}) => {
       return;
     }
 
-    const start = data.columns[source.droppableId];
-    const finish = data.columns[destination.droppableId];
+    // find start/source and finish/destination columns
+    const start = columns.find((col) => col._id === source.droppableId);
+    const finish = columns.find((col) => col._id === destination.droppableId);
 
     /* If start column equals finish column. */
     if (start === finish) {
-      const newTaskIds: number[] = Array.from(start.taskIds);
+      const newTaskIds: string[] = Array.from(start.taskIds);
       newTaskIds.splice(source.index, 1); // remove element with source index
       newTaskIds.splice(destination.index, 0, draggableId); // insert at new pos
 
       const newColumn = {
         ...start,
-        taskIds: newTaskIds,
+        taskIds: newTaskIds, // update task ids
       };
 
-      const newData = {
-        ...data,
-        columns: {
-          ...data.columns,
-          [newColumn.id]: newColumn,
-        },
-      };
+      // update new column in columns list
+      const newColumns: object[] = [...columns];
+      const newColumnId: string = newColumns.findIndex(
+        (col) => col._id === newColumn._id
+      ); // get index of new (updated) column
 
-      setData(newData);
+      newColumns[newColumnId] = newColumn;
+
+      setColumns(newColumns);
       return;
     }
 
@@ -70,19 +89,21 @@ const Board = ({columns}) => {
       taskIds: finishTaskIds,
     };
 
-    const newData = {
-      ...data,
-      columns: {
-        ...data.columns,
-        [newStart.id]: newStart,
-        [newFinish.id]: newFinish,
-      },
-    };
+    const newColumns: object[] = [...columns];
+    const newStartId: string = newColumns.findIndex(
+      (col) => col._id === newStart._id
+    );
+    const newFinishId: string = newColumns.findIndex(
+      (col) => col._id === newFinish._id
+    );
 
-    setData(newData);
+    newColumns[newStartId] = newStart;
+    newColumns[newFinishId] = newFinish;
+
+    setColumns(newColumns);
   };
 
-  return (
+  return columns && tasks ? (
     <DragDropContext onDragEnd={onDragEnd}>
       <Row
         gutter={{ xs: 8, sm: 16, md: 24 }}
@@ -90,11 +111,9 @@ const Board = ({columns}) => {
       >
         <Fragment>
           {columns.map((column, index) => {
-            //const tasks = column.tasks;
-            //const tasks = column.taskIds.map((taskId) => curTasks[taskId]);
             return (
               <Col key={index} xs={24} sm={16} md={12} lg={8} xl={4}>
-                <Column column={column} />
+                <Column column={column} tasks={tasks} />
               </Col>
             );
           })}
@@ -107,11 +126,7 @@ const Board = ({columns}) => {
         </Fragment>
       </Row>
     </DragDropContext>
-  );
-};
-
-Board.propTypes = {
-  columns: PropTypes.array,
+  ) : null;
 };
 
 export default Board;

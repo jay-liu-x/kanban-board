@@ -5,18 +5,18 @@ import { gql } from 'apollo-server-micro';
  */
 const typeDefs = gql`
   type Query {
-    columns: [Column]
+    columns: [Column]!
+    tasks: [Task]!
   }
   type Column {
-    id: String!
-    column_name: String!
-    tasks: [Task]
+    _id: String!
+    name: String!
+    taskIds: [String]
   }
   type Task {
-    id: String!
-    column_name: String!
-    task_title: String!
-    task_body: String
+    _id: String!
+    title: String!
+    body: String
   }
 `;
 

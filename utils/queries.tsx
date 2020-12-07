@@ -1,13 +1,16 @@
-export const queryGetColumns = `
+import { gql } from '@apollo/client';
+
+export const GET_COLUMNS_AND_TASKS = gql`
   query {
     columns {
-      id
-      column_name
-      tasks {
-        id
-        task_title
-        task_body
-      }
+      _id
+      name
+      taskIds
+    }
+    tasks {
+      _id
+      title
+      body
     }
   }
 `;
