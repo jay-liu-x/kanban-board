@@ -31,7 +31,7 @@ const Board = () => {
   }
 
   /* Handles task dragging. */
-  const onDragEnd = (result: object) => {
+  const onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
 
     // Dropped outside the list
