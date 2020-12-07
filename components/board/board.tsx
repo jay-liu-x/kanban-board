@@ -11,8 +11,8 @@ import { PlusOutlined } from '@ant-design/icons';
 import styles from './board.module.scss';
 
 const Board = () => {
-  const [columns, setColumns] = useState();
-  const [tasks, setTasks] = useState();
+  const [columns, setColumns] = useState([]);
+  const [tasks, setTasks] = useState([]);
 
   const { loading, error, data } = useQuery(GET_COLUMNS_AND_TASKS);
 
@@ -64,16 +64,16 @@ const Board = () => {
 
       // update new column in columns list
       const newColumns: object[] = [...columns];
-      const newColumnId: string = newColumns.findIndex(
-        (col) => col._id === newColumn._id
+      const newColumnIndex: number = newColumns.findIndex(
+        (col: any) => col._id === newColumn._id
       ); // get index of new (updated) column
 
-      newColumns[newColumnId] = newColumn;
+      newColumns[newColumnIndex] = newColumn;
 
       setColumns(newColumns);
       return;
     }
-
+    console.log(result, start);
     /* Moving from one list to another */
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
@@ -90,15 +90,15 @@ const Board = () => {
     };
 
     const newColumns: object[] = [...columns];
-    const newStartId: string = newColumns.findIndex(
-      (col) => col._id === newStart._id
+    const newStartIndex: number = newColumns.findIndex(
+      (col: any) => col._id === newStart._id
     );
-    const newFinishId: string = newColumns.findIndex(
-      (col) => col._id === newFinish._id
+    const newFinishIndex: number = newColumns.findIndex(
+      (col: any) => col._id === newFinish._id
     );
 
-    newColumns[newStartId] = newStart;
-    newColumns[newFinishId] = newFinish;
+    newColumns[newStartIndex] = newStart;
+    newColumns[newFinishIndex] = newFinish;
 
     setColumns(newColumns);
   };
