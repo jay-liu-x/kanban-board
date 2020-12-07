@@ -73,7 +73,7 @@ const Board = () => {
       setColumns(newColumns);
       return;
     }
-    console.log(result, start);
+
     /* Moving from one list to another */
     const startTaskIds = Array.from(start.taskIds);
     startTaskIds.splice(source.index, 1);
