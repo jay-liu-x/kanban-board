@@ -23,6 +23,7 @@ const Column = ({ column, tasks }) => {
               {column.name}
             </Title>
             {column.taskIds.map((taskId, index) => {
+              // only get the tasks belonging to current column
               const task: object = tasks.find((task) => task._id === taskId);
               return <Task key={taskId} task={task} index={index} />;
             })}

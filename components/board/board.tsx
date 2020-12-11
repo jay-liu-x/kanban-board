@@ -1,10 +1,12 @@
 import { Fragment, useState, useEffect } from 'react';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from '../column/column';
-import { GET_COLUMNS_AND_TASKS } from '../../utils/queries';
+import { GET_COLUMNS_AND_TASKS } from '../../utils/graphql/queries';
+import { ADD_COLUMN } from '../../utils/graphql/mutations';
 import { Loading } from '../loading';
 import { Error } from '../error';
+import { defaultUser } from '../../utils/constants';
 
 import { Button, Col, Row } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
@@ -14,21 +16,22 @@ const Board = () => {
   const [columns, setColumns] = useState([]);
   const [tasks, setTasks] = useState([]);
 
-  const { loading, error, data } = useQuery(GET_COLUMNS_AND_TASKS);
+  const { loading, error, data: boardData } = useQuery(GET_COLUMNS_AND_TASKS);
+
+  const [addColumn, { data: newColCreated }] = useMutation(ADD_COLUMN, {
+    refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
+  });
 
   useEffect(() => {
-    if (!loading && data) {
-      setColumns(data.columns);
-      setTasks(data.tasks);
+    if (!loading && boardData) {
+      setColumns(boardData.columns);
+      setTasks(boardData.tasks);
     }
-  }, [loading, data]);
+  }, [loading, boardData]);
 
-  if (loading) {
-    return <Loading />;
-  }
-  if (error) {
-    return <Error />;
-  }
+  const onClickAddColumn = () => {
+    addColumn({ variables: { user: defaultUser, colName: '' } });
+  };
 
   /* Handles task dragging. */
   const onDragEnd = (result) => {
@@ -103,6 +106,19 @@ const Board = () => {
     setColumns(newColumns);
   };
 
+  /* For boardData */
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error errMsg={'Failed to get board data.'} />;
+  }
+
+  /* Add column mutation response */
+  if (newColCreated === false) {
+    return <Error errMsg={'Failed to create new column.'} />;
+  }
+
   return columns && tasks ? (
     <DragDropContext onDragEnd={onDragEnd}>
       <Row
@@ -122,6 +138,9 @@ const Board = () => {
             icon={<PlusOutlined />}
             size="large"
             style={{ marginLeft: 10 }}
+            onClick={() => {
+              onClickAddColumn();
+            }}
           ></Button>
         </Fragment>
       </Row>

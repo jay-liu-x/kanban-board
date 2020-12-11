@@ -8,13 +8,19 @@ const typeDefs = gql`
     columns: [Column]!
     tasks: [Task]!
   }
+
+  type Mutation {
+    addColumn(user: String, colName: String): Boolean
+  }
+
   type Column {
-    _id: String!
+    _id: ID!
     name: String!
     taskIds: [String]
   }
+
   type Task {
-    _id: String!
+    _id: ID!
     title: String!
     body: String
   }
