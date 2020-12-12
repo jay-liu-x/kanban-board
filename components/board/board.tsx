@@ -1,15 +1,16 @@
-import { Fragment, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from '../column/column';
 import { GET_COLUMNS_AND_TASKS } from '../../utils/graphql/queries';
-import { ADD_COLUMN } from '../../utils/graphql/mutations';
+import { ADD_COLUMN, DELETE_COLUMN } from '../../utils/graphql/mutations';
 import { Loading } from '../loading';
 import { Error } from '../error';
 import { defaultUser } from '../../utils/constants';
 
-import { Button, Col, Row } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
+import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
+import { Card } from 'antd';
 import styles from './board.module.scss';
 
 const Board = () => {
@@ -18,7 +19,11 @@ const Board = () => {
 
   const { loading, error, data: boardData } = useQuery(GET_COLUMNS_AND_TASKS);
 
-  const [addColumn, { data: newColCreated }] = useMutation(ADD_COLUMN, {
+  const [addColumn, { data: colCreated }] = useMutation(ADD_COLUMN, {
+    refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
+  });
+
+  const [deleteColumn, { data: colDeleted }] = useMutation(DELETE_COLUMN, {
     refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
   });
 
@@ -31,6 +36,10 @@ const Board = () => {
 
   const onClickAddColumn = () => {
     addColumn({ variables: { user: defaultUser, colName: '' } });
+  };
+
+  const onClickDeleteColumn = (colId) => {
+    deleteColumn({ variables: { user: defaultUser, colId: colId } });
   };
 
   /* Handles task dragging. */
@@ -115,35 +124,56 @@ const Board = () => {
   }
 
   /* Add column mutation response */
-  if (newColCreated === false) {
+  if (colCreated === false) {
     return <Error errMsg={'Failed to create new column.'} />;
-  }
+  } // TODO: add alert
+
+  /* Delete column mutation response */
+  if (colDeleted === false) {
+    return <Error errMsg={'Failed to delete column.'} />;
+  } // TODO: add alert
 
   return columns && tasks ? (
     <DragDropContext onDragEnd={onDragEnd}>
-      <Row
-        gutter={{ xs: 8, sm: 16, md: 24 }}
-        className={styles.board_container}
-      >
-        <Fragment>
-          {columns.map((column, index) => {
-            return (
-              <Col key={index} xs={24} sm={16} md={12} lg={8} xl={4}>
-                <Column column={column} tasks={tasks} />
-              </Col>
-            );
-          })}
-          <Button
-            shape="circle"
-            icon={<PlusOutlined />}
-            size="large"
-            style={{ marginLeft: 10 }}
-            onClick={() => {
-              onClickAddColumn();
-            }}
-          ></Button>
-        </Fragment>
-      </Row>
+      <div className={styles.board_container}>
+        {columns.map((column, index) => {
+          return (
+            <Card
+              className={styles.column_container}
+              bodyStyle={{ height: '100%' }}
+              key={index}
+              style={{ backgroundColor: '#3e526d', height: '100%' }}
+            >
+              <Column column={column} tasks={tasks} />
+              <Button
+                shape="circle"
+                icon={<DeleteFilled />}
+                size="large"
+                style={{
+                  position: 'relative',
+                  left: '50%',
+                  bottom: '20px',
+                  transform: 'translate(-50%, -50%)',
+                  margin: '0 auto',
+                }}
+                onClick={() => {
+                  onClickDeleteColumn(column._id);
+                }}
+                ghost
+              ></Button>
+            </Card>
+          );
+        })}
+        <Button
+          shape="circle"
+          icon={<PlusOutlined />}
+          size="large"
+          style={{ marginLeft: 10 }}
+          onClick={() => {
+            onClickAddColumn();
+          }}
+        ></Button>
+      </div>
     </DragDropContext>
   ) : null;
 };

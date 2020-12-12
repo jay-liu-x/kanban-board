@@ -5,3 +5,9 @@ export const ADD_COLUMN = gql`
     addColumn(user: $user, colName: $colName)
   }
 `;
+
+export const DELETE_COLUMN = gql`
+  mutation addColumn($user: String!, $colId: ID!) {
+    deleteColumn(user: $user, colId: $colId)
+  }
+`;

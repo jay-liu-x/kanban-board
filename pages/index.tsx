@@ -16,7 +16,19 @@ const { Title } = Typography;
 
 const apolloClient = new ApolloClient({
   uri: '/api/graphql',
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          columns: {
+            merge(_existing, _incoming) {
+              return _incoming;
+            },
+          },
+        },
+      },
+    },
+  }),
 });
 
 const Home = () => {

@@ -10,7 +10,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addColumn(user: String, colName: String): Boolean
+    addColumn(user: String!, colName: String): Boolean
+    deleteColumn(user: String!, colId: ID!): Boolean
   }
 
   type Column {
