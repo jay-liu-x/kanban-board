@@ -13,6 +13,7 @@ const typeDefs = gql`
     addColumn(user: String!, colName: String): Boolean
     deleteColumn(user: String!, colId: ID!): Boolean
     updateColumns(user: String!, cols: [updateColumnsInput!]!): Boolean
+    updateColumnName(user: String!, colId: ID!, colName: String!): Boolean
   }
 
   input updateColumnsInput {

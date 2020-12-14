@@ -1,13 +1,34 @@
+import { useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import Task from '../task/task';
 import { Droppable } from 'react-beautiful-dnd';
+import { Error } from '../error';
+import { UPDATE_COLUMN_NAME } from '../../utils/graphql/mutations';
+import { defaultUser } from '../../utils/constants';
 
-import { Typography } from 'antd';
+import { Input } from 'antd';
 import styles from './column.module.scss';
 
-const { Title } = Typography;
-
 const Column = ({ column, tasks }) => {
+  const [updateColumnName, { data: colNameUpdated }] = useMutation(
+    UPDATE_COLUMN_NAME
+  );
+
+  const onColNameChange = (e) => {
+    updateColumnName({
+      variables: {
+        user: defaultUser,
+        colId: column._id,
+        colName: e.target.value,
+      },
+    });
+  };
+
+  /* Delete column mutation response */
+  if (colNameUpdated === false) {
+    return <Error errMsg={'Failed to update column name.'} />;
+  }
+
   return (
     <Droppable droppableId={column._id}>
       {(provided) => (
@@ -17,9 +38,18 @@ const Column = ({ column, tasks }) => {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          <Title level={5} style={{ color: 'white' }}>
-            {column.name}
-          </Title>
+          <Input
+            defaultValue={column.name}
+            maxLength={20}
+            onChange={onColNameChange}
+            size={'large'}
+            style={{
+              color: 'white',
+              backgroundColor: 'transparent',
+              marginBottom: '20px',
+              textAlign: 'center',
+            }}
+          />
           {column.taskIds.map((taskId, index) => {
             // only get the tasks belonging to current column
             const task: object = tasks.find((task) => task._id === taskId);

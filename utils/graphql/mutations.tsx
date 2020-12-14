@@ -17,3 +17,8 @@ export const UPDATE_COLUMNS = gql`
     updateColumns(user: $user, cols: $cols)
   }
 `;
+export const UPDATE_COLUMN_NAME = gql`
+  mutation updateColumnName($user: String!, $colId: ID!, $colName: String!) {
+    updateColumnName(user: $user, colId: $colId, colName: $colName)
+  }
+`;

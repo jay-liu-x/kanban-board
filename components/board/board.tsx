@@ -10,7 +10,7 @@ import {
 } from '../../utils/graphql/mutations';
 import { Loading } from '../loading';
 import { Error } from '../error';
-import { defaultUser } from '../../utils/constants';
+import { defaultUser, defaultColumnName } from '../../utils/constants';
 
 import { Button } from 'antd';
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
@@ -43,7 +43,7 @@ const Board = () => {
   }, [loading, boardData]);
 
   const onClickAddColumn = () => {
-    addColumn({ variables: { user: defaultUser, colName: '' } });
+    addColumn({ variables: { user: defaultUser, colName: defaultColumnName } });
   };
 
   const onClickDeleteColumn = (colId) => {

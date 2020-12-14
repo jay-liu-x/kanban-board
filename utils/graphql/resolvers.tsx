@@ -82,6 +82,20 @@ const resolvers = {
           return data.result.nModified === 1; // return true if one item is modified
         });
     },
+    updateColumnName(_parent, _args, _context, _info) {
+      return _context.db
+        .collection('columns')
+        .updateOne(
+          {
+            user: _args.user,
+            'columns._id': ObjectID(_args.colId),
+          },
+          { $set: { 'columns.$.name': _args.colName } }
+        )
+        .then((data) => {
+          return data.result.nModified === 1; // return true if one item is modified
+        });
+    },
   },
 };
 
