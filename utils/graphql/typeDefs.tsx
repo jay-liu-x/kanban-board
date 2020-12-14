@@ -12,12 +12,19 @@ const typeDefs = gql`
   type Mutation {
     addColumn(user: String!, colName: String): Boolean
     deleteColumn(user: String!, colId: ID!): Boolean
+    updateColumns(user: String!, cols: [updateColumnsInput!]!): Boolean
+  }
+
+  input updateColumnsInput {
+    _id: ID!
+    name: String!
+    taskIds: [ID]
   }
 
   type Column {
     _id: ID!
     name: String!
-    taskIds: [String]
+    taskIds: [ID]
   }
 
   type Task {

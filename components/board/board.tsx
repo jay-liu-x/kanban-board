@@ -3,12 +3,16 @@ import { useQuery, useMutation } from '@apollo/client';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from '../column/column';
 import { GET_COLUMNS_AND_TASKS } from '../../utils/graphql/queries';
-import { ADD_COLUMN, DELETE_COLUMN } from '../../utils/graphql/mutations';
+import {
+  ADD_COLUMN,
+  DELETE_COLUMN,
+  UPDATE_COLUMNS,
+} from '../../utils/graphql/mutations';
 import { Loading } from '../loading';
 import { Error } from '../error';
 import { defaultUser } from '../../utils/constants';
 
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
 import { Card } from 'antd';
 import styles from './board.module.scss';
@@ -27,6 +31,10 @@ const Board = () => {
     refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
   });
 
+  const [updateColumns, { data: colsUpdated }] = useMutation(UPDATE_COLUMNS, {
+    refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
+  });
+
   useEffect(() => {
     if (!loading && boardData) {
       setColumns(boardData.columns);
@@ -36,10 +44,20 @@ const Board = () => {
 
   const onClickAddColumn = () => {
     addColumn({ variables: { user: defaultUser, colName: '' } });
+    if (colCreated) {
+      success('Column created successfully');
+    }
   };
 
   const onClickDeleteColumn = (colId) => {
     deleteColumn({ variables: { user: defaultUser, colId: colId } });
+    if (colDeleted) {
+      success('Column deleted successfully');
+    }
+  };
+
+  const success = (msg) => {
+    message.success(msg, 1);
   };
 
   /* Handles task dragging. */
@@ -83,6 +101,9 @@ const Board = () => {
       newColumns[newColumnIndex] = newColumn;
 
       setColumns(newColumns);
+
+      const cleanedColumns = cleanColumns(newColumns);
+      updateColumns({ variables: { user: defaultUser, cols: cleanedColumns } });
       return;
     }
 
@@ -113,6 +134,14 @@ const Board = () => {
     newColumns[newFinishIndex] = newFinish;
 
     setColumns(newColumns);
+
+    const cleanedColumns = cleanColumns(newColumns);
+    updateColumns({ variables: { user: defaultUser, cols: cleanedColumns } });
+  };
+
+  /** Remove __typename property from each column in columns array. */
+  const cleanColumns = (cols: object[]) => {
+    return cols.map(({ __typename, ...item }) => item);
   };
 
   /* For boardData */
@@ -124,14 +153,20 @@ const Board = () => {
   }
 
   /* Add column mutation response */
+  // asserting to false instead of !colCreated because it may be null or other falsy values
   if (colCreated === false) {
     return <Error errMsg={'Failed to create new column.'} />;
-  } // TODO: add alert
+  }
 
   /* Delete column mutation response */
   if (colDeleted === false) {
     return <Error errMsg={'Failed to delete column.'} />;
-  } // TODO: add alert
+  }
+
+  /* Update columns mutation response */
+  if (colsUpdated === false) {
+    return <Error errMsg={'Failed to update columns.'} />;
+  }
 
   return columns && tasks ? (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -148,7 +183,6 @@ const Board = () => {
               <Button
                 shape="circle"
                 icon={<DeleteFilled />}
-                size="large"
                 style={{
                   position: 'relative',
                   left: '50%',

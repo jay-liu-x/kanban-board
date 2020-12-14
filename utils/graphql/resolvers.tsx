@@ -58,6 +58,30 @@ const resolvers = {
           return data.result.nModified === 1; // return true if one item is modified
         });
     },
+    updateColumns(_parent, _args, _context, _info) {
+      /* Convert string ids to ObjectIds */
+      const cols = _args.cols.map(({ _id, taskIds, ...rest }) => ({
+        ...rest,
+        _id: ObjectID(_id),
+        taskIds: taskIds.map((taskId) => ObjectID(taskId)),
+      }));
+
+      return _context.db
+        .collection('columns')
+        .updateOne(
+          {
+            user: _args.user,
+          },
+          {
+            $set: {
+              columns: cols,
+            },
+          }
+        )
+        .then((data) => {
+          return data.result.nModified === 1; // return true if one item is modified
+        });
+    },
   },
 };
 

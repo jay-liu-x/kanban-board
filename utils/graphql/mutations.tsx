@@ -11,3 +11,9 @@ export const DELETE_COLUMN = gql`
     deleteColumn(user: $user, colId: $colId)
   }
 `;
+
+export const UPDATE_COLUMNS = gql`
+  mutation updateColumns($user: String!, $cols: [updateColumnsInput!]!) {
+    updateColumns(user: $user, cols: $cols)
+  }
+`;
