@@ -140,7 +140,8 @@ const Board = () => {
   };
 
   /** Remove __typename property from each column in columns array. */
-  const cleanColumns = (cols: object[]) => {
+  const cleanColumns = (cols) => {
+    // eslint-disable-next-line no-unused-vars
     return cols.map(({ __typename, ...item }) => item);
   };
 
