@@ -5,7 +5,14 @@ import {
   kanbanWikiUrl,
 } from '../utils/constants';
 import Board from '../components/board/board';
-import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  from,
+  ApolloProvider,
+  InMemoryCache,
+  HttpLink,
+} from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
 
 import { Typography } from 'antd';
 import { GithubFilled, RadarChartOutlined } from '@ant-design/icons';
@@ -14,8 +21,19 @@ import styles from '../styles/home.module.scss';
 
 const { Title } = Typography;
 
+const httpLink = new HttpLink({ uri: '/api/graphql' });
+
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+  if (graphQLErrors)
+    graphQLErrors.map(({ message, path }) =>
+      console.error(
+        `[GraphQL error]: Message: ${message}, Operation: ${operation.operationName}, Path: ${path}`
+      )
+    );
+  if (networkError) console.error(`[Network error]: ${networkError}`);
+});
+
 const apolloClient = new ApolloClient({
-  uri: '/api/graphql',
   cache: new InMemoryCache({
     typePolicies: {
       Query: {
@@ -29,6 +47,7 @@ const apolloClient = new ApolloClient({
       },
     },
   }),
+  link: from([errorLink, httpLink]),
 });
 
 const Home = () => {
