@@ -12,7 +12,7 @@ import { Loading } from '../loading';
 import { Error } from '../error';
 import { defaultUser } from '../../utils/constants';
 
-import { Button, message } from 'antd';
+import { Button } from 'antd';
 import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
 import { Card } from 'antd';
 import styles from './board.module.scss';
@@ -44,20 +44,10 @@ const Board = () => {
 
   const onClickAddColumn = () => {
     addColumn({ variables: { user: defaultUser, colName: '' } });
-    if (colCreated) {
-      success('Column created successfully');
-    }
   };
 
   const onClickDeleteColumn = (colId) => {
     deleteColumn({ variables: { user: defaultUser, colId: colId } });
-    if (colDeleted) {
-      success('Column deleted successfully');
-    }
-  };
-
-  const success = (msg) => {
-    message.success(msg, 1);
   };
 
   /* Handles task dragging. */
