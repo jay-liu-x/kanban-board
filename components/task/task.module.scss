@@ -1,4 +1,21 @@
 .task_container {
   margin-bottom: 20px;
-  cursor: pointer;
+}
+
+.task_card {
+  background-color: #536783;
+  border: 1px white solid;
+  display: flex;
+
+  .task_card_left {
+    flex: 1;
+    background-image: radial-gradient(#1e2b3c 2px, transparent 0);
+    background-size: 8px 8px;
+    cursor: move;
+  }
+
+  .task_card_right {
+    flex: 5;
+    padding: 10px;
+  }
 }
