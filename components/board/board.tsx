@@ -197,7 +197,7 @@ const Board = () => {
           onClick={() => {
             onClickAddColumn();
           }}
-        ></Button>
+        />
       </div>
     </DragDropContext>
   ) : null;
