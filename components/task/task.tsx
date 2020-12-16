@@ -11,6 +11,8 @@ import { defaultUser } from '../../utils/constants';
 import { Input } from 'antd';
 import styles from './task.module.scss';
 
+const { TextArea } = Input;
+
 const Task = ({ task, index }) => {
   const [updateTaskTitle, { data: taskTitleUpdated }] = useMutation(
     UPDATE_TASK_TITLE
@@ -75,16 +77,17 @@ const Task = ({ task, index }) => {
                   fontWeight: 'bold',
                 }}
               />
-              <Input
+              <TextArea
+                autoSize
                 bordered={false}
                 defaultValue={task.body}
                 maxLength={50}
                 onChange={onTaskBodyChange}
-                size={'small'}
                 style={{
                   backgroundColor: 'transparent',
                   color: 'white',
                   textAlign: 'center',
+                  resize: 'none',
                 }}
               />
             </div>
