@@ -14,6 +14,8 @@ const typeDefs = gql`
     deleteColumn(user: String!, colId: ID!): Boolean
     updateColumns(user: String!, cols: [updateColumnsInput!]!): Boolean
     updateColumnName(user: String!, colId: ID!, colName: String!): Boolean
+    updateTaskTitle(user: String!, taskId: ID!, taskTitle: String): Boolean
+    updateTaskBody(user: String!, taskId: ID!, taskBody: String): Boolean
   }
 
   input updateColumnsInput {

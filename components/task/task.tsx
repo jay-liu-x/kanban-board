@@ -1,13 +1,54 @@
+import { useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import { Draggable } from 'react-beautiful-dnd';
+import { Error } from '../error';
+import {
+  UPDATE_TASK_TITLE,
+  UPDATE_TASK_BODY,
+} from '../../utils/graphql/mutations';
+import { defaultUser } from '../../utils/constants';
 
 import { Input } from 'antd';
 import styles from './task.module.scss';
 
 const Task = ({ task, index }) => {
-  const onTaskTitleChange = (e) => {console.log(e)};
+  const [updateTaskTitle, { data: taskTitleUpdated }] = useMutation(
+    UPDATE_TASK_TITLE
+  );
 
-  const onTaskBodyChange = (e) => {console.log(e)};
+  const onTaskTitleChange = (e) => {
+    updateTaskTitle({
+      variables: {
+        user: defaultUser,
+        taskId: task._id,
+        taskTitle: e.target.value,
+      },
+    });
+  };
+
+  const [updateTaskBody, { data: taskBodyUpdated }] = useMutation(
+    UPDATE_TASK_BODY
+  );
+
+  const onTaskBodyChange = (e) => {
+    updateTaskBody({
+      variables: {
+        user: defaultUser,
+        taskId: task._id,
+        taskBody: e.target.value,
+      },
+    });
+  };
+
+  /* Update task title mutation response */
+  if (taskTitleUpdated === false) {
+    return <Error errMsg={'Failed to update task Title.'} />;
+  }
+
+  /* Update task body mutation response */
+  if (taskBodyUpdated === false) {
+    return <Error errMsg={'Failed to update task body.'} />;
+  }
 
   return (
     <Draggable draggableId={task._id} index={index}>

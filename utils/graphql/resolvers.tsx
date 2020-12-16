@@ -96,6 +96,34 @@ const resolvers = {
           return data.result.nModified === 1; // return true if one item is modified
         });
     },
+    updateTaskTitle(_parent, _args, _context, _info) {
+      return _context.db
+        .collection('tasks')
+        .updateOne(
+          {
+            user: _args.user,
+            'tasks._id': ObjectID(_args.taskId),
+          },
+          { $set: { 'tasks.$.title': _args.taskTitle } }
+        )
+        .then((data) => {
+          return data.result.nModified === 1; // return true if one item is modified
+        });
+    },
+    updateTaskBody(_parent, _args, _context, _info) {
+      return _context.db
+        .collection('tasks')
+        .updateOne(
+          {
+            user: _args.user,
+            'tasks._id': ObjectID(_args.taskId),
+          },
+          { $set: { 'tasks.$.body': _args.taskBody } }
+        )
+        .then((data) => {
+          return data.result.nModified === 1; // return true if one item is modified
+        });
+    },
   },
 };
 
