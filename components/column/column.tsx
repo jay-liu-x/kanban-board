@@ -24,7 +24,7 @@ const Column = ({ column, tasks }) => {
     });
   };
 
-  /* Delete column mutation response */
+  /* Update column mutation response */
   if (colNameUpdated === false) {
     return <Error errMsg={'Failed to update column name.'} />;
   }
