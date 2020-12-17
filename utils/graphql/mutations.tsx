@@ -38,6 +38,11 @@ export const ADD_TASK = gql`
     )
   }
 `;
+export const DELETE_TASK = gql`
+  mutation deleteTask($user: String!, $colId: ID!, $taskId: ID!) {
+    deleteTask(user: $user, colId: $colId, taskId: $taskId)
+  }
+`;
 export const UPDATE_TASK_TITLE = gql`
   mutation updateTaskTitle($user: String!, $taskId: ID!, $taskTitle: String!) {
     updateTaskTitle(user: $user, taskId: $taskId, taskTitle: $taskTitle)

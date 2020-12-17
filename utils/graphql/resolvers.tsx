@@ -130,6 +130,34 @@ const resolvers = {
           );
         });
     },
+    deleteTask(_parent, _args, _context, _info) {
+      return _context.db
+        .collection('tasks')
+        .updateOne(
+          { user: _args.user },
+          {
+            $pull: {
+              tasks: {
+                _id: ObjectID(_args.taskId),
+              },
+            },
+          }
+        )
+        .then((data) => {
+          if (data.result.nModified !== 1) {
+            return false;
+          }
+          /* Delete task from corresponding column. */
+          _context.db.collection('columns').updateOne(
+            { user: _args.user, 'columns._id': ObjectID(_args.colId) },
+            {
+              $pull: {
+                'columns.$.taskIds': ObjectID(_args.taskId),
+              },
+            }
+          );
+        });
+    },
     updateTaskTitle(_parent, _args, _context, _info) {
       return _context.db
         .collection('tasks')

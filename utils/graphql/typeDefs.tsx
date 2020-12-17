@@ -21,6 +21,11 @@ const typeDefs = gql`
       taskTitle: String
       taskBody: String
     ): Boolean
+    deleteTask(
+      user: String!
+      colId: ID!
+      taskId: ID!
+    ): Boolean
     updateTaskTitle(user: String!, taskId: ID!, taskTitle: String): Boolean
     updateTaskBody(user: String!, taskId: ID!, taskBody: String): Boolean
   }

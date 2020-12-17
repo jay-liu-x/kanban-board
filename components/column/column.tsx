@@ -1,18 +1,27 @@
+import { Fragment } from 'react';
 import { useMutation } from '@apollo/client';
 import PropTypes from 'prop-types';
 import Task from '../task/task';
 import { Droppable } from 'react-beautiful-dnd';
 import { Error } from '../error';
 import { GET_COLUMNS_AND_TASKS } from '../../utils/graphql/queries';
-import { ADD_TASK, UPDATE_COLUMN_NAME } from '../../utils/graphql/mutations';
+import {
+  ADD_TASK,
+  DELETE_TASK,
+  UPDATE_COLUMN_NAME,
+} from '../../utils/graphql/mutations';
 import { defaultUser } from '../../utils/constants';
 
 import { Button, Input } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
 import styles from './column.module.scss';
 
 const Column = ({ column, tasks }) => {
   const [addTask, { data: taskCreated }] = useMutation(ADD_TASK, {
+    refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
+  });
+
+  const [deleteTask, { data: taskDeleted }] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
   });
 
@@ -27,6 +36,16 @@ const Column = ({ column, tasks }) => {
         colId: column._id,
         taskTitle: 'Edit here',
         taskBody: 'Type something here...',
+      },
+    });
+  };
+
+  const onClickDeleteTask = (taskId) => {
+    deleteTask({
+      variables: {
+        user: defaultUser,
+        colId: column._id,
+        taskId: taskId,
       },
     });
   };
@@ -75,7 +94,25 @@ const Column = ({ column, tasks }) => {
           {column.taskIds.map((taskId, index) => {
             // only get the tasks belonging to current column
             const task: object = tasks.find((task) => task._id === taskId);
-            return <Task key={taskId} task={task} index={index} />;
+            return task ? (
+              <Fragment key={taskId}>
+                <Task task={task} index={index} />
+                <Button
+                  shape="circle"
+                  icon={<DeleteFilled />}
+                  style={{
+                    //position: 'relative',
+                    right: '5px',
+                    bottom: '5px',
+                    margin: '0 auto',
+                  }}
+                  onClick={() => {
+                    onClickDeleteTask(task._id);
+                  }}
+                  ghost
+                />
+              </Fragment>
+            ) : null;
           })}
           <Button
             shape="circle"
