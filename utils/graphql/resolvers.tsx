@@ -83,7 +83,8 @@ const resolvers = {
         });
     },
     updateColumnName(_parent, _args, _context, _info) {
-      return _context.db
+      /* Add task in corresponding column. */
+      _context.db
         .collection('columns')
         .updateOne(
           {
@@ -94,6 +95,39 @@ const resolvers = {
         )
         .then((data) => {
           return data.result.nModified === 1; // return true if one item is modified
+        });
+    },
+
+    addTask(_parent, _args, _context, _info) {
+      const taskId = ObjectID(); // generate objectId
+
+      return _context.db
+        .collection('tasks')
+        .updateOne(
+          { user: _args.user },
+          {
+            $push: {
+              tasks: {
+                _id: taskId,
+                title: _args.taskTitle,
+                body: _args.taskBody,
+              },
+            },
+          }
+        )
+        .then((data) => {
+          if (data.result.nModified !== 1) {
+            return false;
+          }
+          /* Add task to corresponding column. */
+          _context.db.collection('columns').updateOne(
+            { user: _args.user, 'columns._id': ObjectID(_args.colId) },
+            {
+              $push: {
+                'columns.$.taskIds': taskId,
+              },
+            }
+          );
         });
     },
     updateTaskTitle(_parent, _args, _context, _info) {

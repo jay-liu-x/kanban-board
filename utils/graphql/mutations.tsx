@@ -22,6 +22,22 @@ export const UPDATE_COLUMN_NAME = gql`
     updateColumnName(user: $user, colId: $colId, colName: $colName)
   }
 `;
+
+export const ADD_TASK = gql`
+  mutation addTask(
+    $user: String!
+    $colId: ID!
+    $taskTitle: String
+    $taskBody: String
+  ) {
+    addTask(
+      user: $user
+      colId: $colId
+      taskTitle: $taskTitle
+      taskBody: $taskBody
+    )
+  }
+`;
 export const UPDATE_TASK_TITLE = gql`
   mutation updateTaskTitle($user: String!, $taskId: ID!, $taskTitle: String!) {
     updateTaskTitle(user: $user, taskId: $taskId, taskTitle: $taskTitle)
