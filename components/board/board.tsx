@@ -185,7 +185,7 @@ const Board = () => {
                   onClickDeleteColumn(column._id);
                 }}
                 ghost
-              ></Button>
+              />
             </Card>
           );
         })}
