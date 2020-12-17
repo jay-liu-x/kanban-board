@@ -5,23 +5,15 @@ import Task from '../task/task';
 import { Droppable } from 'react-beautiful-dnd';
 import { Error } from '../error';
 import { GET_COLUMNS_AND_TASKS } from '../../utils/graphql/queries';
-import {
-  ADD_TASK,
-  DELETE_TASK,
-  UPDATE_COLUMN_NAME,
-} from '../../utils/graphql/mutations';
+import { ADD_TASK, UPDATE_COLUMN_NAME } from '../../utils/graphql/mutations';
 import { defaultUser } from '../../utils/constants';
 
 import { Button, Input } from 'antd';
-import { PlusOutlined, DeleteFilled } from '@ant-design/icons';
+import { PlusOutlined } from '@ant-design/icons';
 import styles from './column.module.scss';
 
 const Column = ({ column, tasks }) => {
   const [addTask, { data: taskCreated }] = useMutation(ADD_TASK, {
-    refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
-  });
-
-  const [deleteTask, { data: taskDeleted }] = useMutation(DELETE_TASK, {
     refetchQueries: [{ query: GET_COLUMNS_AND_TASKS }],
   });
 
@@ -36,16 +28,6 @@ const Column = ({ column, tasks }) => {
         colId: column._id,
         taskTitle: 'Edit here',
         taskBody: 'Type something here...',
-      },
-    });
-  };
-
-  const onClickDeleteTask = (taskId) => {
-    deleteTask({
-      variables: {
-        user: defaultUser,
-        colId: column._id,
-        taskId: taskId,
       },
     });
   };
@@ -96,21 +78,7 @@ const Column = ({ column, tasks }) => {
             const task = tasks.find((task) => task._id === taskId);
             return task ? (
               <Fragment key={taskId}>
-                <Task task={task} index={index} />
-                <Button
-                  shape="circle"
-                  icon={<DeleteFilled />}
-                  style={{
-                    //position: 'relative',
-                    right: '5px',
-                    bottom: '5px',
-                    margin: '0 auto',
-                  }}
-                  onClick={() => {
-                    onClickDeleteTask(task._id);
-                  }}
-                  ghost
-                />
+                <Task colId={column._id} task={task} index={index} />
               </Fragment>
             ) : null;
           })}

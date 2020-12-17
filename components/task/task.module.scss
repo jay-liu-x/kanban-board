@@ -11,11 +11,16 @@
     flex: 1;
     background-image: radial-gradient(#1e2b3c 2px, transparent 0);
     background-size: 8px 8px;
-    cursor: move;
+    cursor: pointer;
+  }
+
+  .task_card_mid {
+    flex: 5;
+    padding: 10px;
   }
 
   .task_card_right {
-    flex: 5;
-    padding: 10px;
+    right: 5px;
+    margin: auto;
   }
 }
