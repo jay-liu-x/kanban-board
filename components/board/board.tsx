@@ -175,9 +175,9 @@ const Board = () => {
                 shape="circle"
                 icon={<DeleteFilled />}
                 style={{
-                  position: 'relative',
+                  position: 'absolute',
                   left: '50%',
-                  bottom: '20px',
+                  bottom: '0px',
                   transform: 'translate(-50%, -50%)',
                   margin: '0 auto',
                 }}
