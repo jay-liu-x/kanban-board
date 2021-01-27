@@ -1,7 +1,7 @@
-export const authorName: string = 'Xiaohui(Jay) Liu';
-export const personalSite: string = 'https://www.xiaohuiliu.me/';
+export const authorName: string = 'Jay Liu';
+export const personalSite: string = 'https://jay-liu.netlify.app/';
 export const githubUrl: string =
-  'https://github.com/xiaohui-j-liu/kanban-board';
+  'https://github.com/jay-liu-x/kanban-board';
 export const kanbanWikiUrl: string = 'https://en.wikipedia.org/wiki/Kanban';
 
 export const defaultColumnName: String = 'Edit Here';
