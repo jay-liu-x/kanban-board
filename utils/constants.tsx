@@ -1,5 +1,5 @@
 export const authorName: string = 'Jay Liu';
-export const personalSite: string = 'https://jay-liu.netlify.app/';
+export const personalSite: string = 'https://www.jayliu.me/';
 export const githubUrl: string =
   'https://github.com/jay-liu-x/kanban-board';
 export const kanbanWikiUrl: string = 'https://en.wikipedia.org/wiki/Kanban';
