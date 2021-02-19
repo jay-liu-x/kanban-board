@@ -40,7 +40,7 @@ const Board = () => {
       setColumns(boardData.columns);
       setTasks(boardData.tasks);
     }
-  }, [loading, boardData, columns]);
+  }, [loading, boardData]);
 
   const onClickAddColumn = () => {
     addColumn({ variables: { user: defaultUser, colName: defaultColumnName } });
