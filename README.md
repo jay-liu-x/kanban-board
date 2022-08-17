@@ -5,6 +5,7 @@ Kanban is a popular framework for agile software development teams. Famous softw
 <br>
 
 ### 🚀 [Live Demo](https://kanban-board.jay-liu-x.vercel.app/)
+> Live Demo no longer works because my MongoDB Atlas account was cancelled :(
 
 <br>
 
